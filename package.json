@@ -1,0 +1,24 @@
+{
+  "name": "full_stack_backend",
+  "version": "1.0.0",
+  "description": "Hoi Dan IT teaches me how to use Node.js",
+  "main": "server.js",
+  "scripts": {
+    "test": " ",
+    "start": "nodemon ./src/server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "react"
+  ],
+  "author": "ldoanh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "17.0.0",
+    "ejs": "3.1.10",
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.10"
+  }
+}
