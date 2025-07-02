@@ -8,4 +8,6 @@ const configViewEngine = (app) => {
     //Config static files
     app.use(express.static(path.join("./src", 'publics')))
 };
+
+//Export module
 module.exports = configViewEngine;
