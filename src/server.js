@@ -17,14 +17,6 @@ configViewEngine(app);
 //Using router 
 const webRouter = require('./routes/web');
 app.use('/', webRouter); // === app.use('/',"[MODULE_NAME]")
-//Test connection
-const dbConnection = require('./config/database');
-dbConnection.query('SELECT * FROM `USERS`',
-  function (err, results, fields) {
-    console.log("Result:", results); // results contains rows returned by server
-    // console.log("Fields:", fields); // fields contains extra meta data about results, if available
-  });
-//Database connection
 
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`)

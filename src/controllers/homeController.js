@@ -1,5 +1,15 @@
+//Test connection
+const dbConnection = require('../config/newConnection');
+//Database connection
 const getHomePage = (req, res) => {
-    res.send('Hello World! & every dev in the world')
+    let users = [];
+    dbConnection.query('SELECT * FROM `USERS`',
+        function (err, results, fields) {
+            users = results;
+            console.log("Result:", results); // results contains rows returned by server
+            // console.log("Fields:", fields); // fields contains extra meta data about results, if available
+            res.render('home.ejs');
+        });
 };
 const getAnhThuCuaTui = (req, res) => {
     res.send('<h1>Lam Doanh thương em bé mờ</h1>')
