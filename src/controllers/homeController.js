@@ -18,8 +18,18 @@ const getHoiDanIT = (req, res) => {
     res.render('sample.ejs')
 }
 const postAddUser = (req, res) => {
-    console.log("request body:" ,req.body);
-    res.render("createSuccessful.ejs")
+    console.log("request body:", req.body);
+    const { email, name, city } = req.body;
+    try {
+        dbConnection.query(
+            'INSERT INTO USERS(email,name,city) VALUES (?,?,?)',
+            [email, name, city]
+        );
+        // res.render("createSuccessful.ejs");
+        res.send("Create user successful");
+    } catch (err) {
+        console.log(err);
+    }
 }
 //Export module
 module.exports = {
