@@ -17,9 +17,14 @@ const getAnhThuCuaTui = (req, res) => {
 const getHoiDanIT = (req, res) => {
     res.render('sample.ejs')
 }
+const postAddUser = (req, res) => {
+    console.log("request body:" ,req.body);
+    res.render("createSuccessful.ejs")
+}
 //Export module
 module.exports = {
     getHomePage,
     getAnhThuCuaTui,
-    getHoiDanIT
+    getHoiDanIT,
+    postAddUser
 };

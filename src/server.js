@@ -13,7 +13,9 @@ const hostname = 'localhost'
 //Config view engine 
 const configViewEngine = require('./config/viewEngine');
 configViewEngine(app);
-
+//config req body
+app.use(express.json);
+app.use(express.urlencoded({extended:true}));
 //Using router 
 const webRouter = require('./routes/web');
 app.use('/', webRouter); // === app.use('/',"[MODULE_NAME]")

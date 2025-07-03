@@ -5,12 +5,14 @@ const router = express.Router();
 const {
     getHomePage,
     getAnhThuCuaTui,
-    getHoiDanIT
+    getHoiDanIT,
+    postAddUser
 } = require('../controllers/homeController');
 //<<
 router.get('/', getHomePage);
 router.get('/anhthuiu', getAnhThuCuaTui);
 router.get("/hoidanIT", getHoiDanIT);
+router.post("/create_user", postAddUser)
 //>>
 //Export module
 module.exports = router;

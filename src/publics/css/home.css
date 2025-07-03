@@ -1,6 +1,14 @@
-body{
+body {
   margin: 0;
   padding: 0;
+}
+
+.add-user-form {
+  width: 500px;
+  margin: auto;
+}
+input[type="submit"]{
+  cursor: pointer;
 }
 .topnav {
   background-color: #333;

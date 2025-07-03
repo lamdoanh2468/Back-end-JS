@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add New User</title>
+    <link rel="icon" type="image/png" href="images/nodejs.png">
     <link rel="stylesheet" href="/css/home.css">
 </head>
 
@@ -14,18 +15,21 @@
         <a href="#contact">Contact</a>
         <a href="#about">About</a>
     </div>
-    <div class="input-group">
-        <label for="email-input">Email:</label>
-        <input type="email" id="email-input">
+    <div class="add-user-form">
+        <form action="/create_user" method="post">
+            <fieldset>
+                <legend>Add New User:</legend>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br><br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city"><br><br>
+                <input type="submit" value="Add">
+            </fieldset>
+        </form>
     </div>
-    <div class="input-group">
-        <label for="name-input">Name:</label>
-        <input type="text" id="name-input">
-    </div>
-    <div class="input-group">
-        <label for="city-input">City:</label>
-        <input type="text" id="city-input">
-    </div>
+</body>
 </body>
 
 </html>
