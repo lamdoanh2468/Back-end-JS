@@ -20,8 +20,8 @@ const getCreatePage = (req, res) => {
 }
 const postAddUser = async (req, res) => {
     console.log("request body:", req.body);
-    const [email, name, city] = req.body;
-    const [results, fields] = await dbConnection.query(
+    const {email, name, city} = req.body;
+    let [results, fields] = await dbConnection.query(
         'INSERT INTO USERS(email,name,city) VALUES (?,?,?)',
         [email, name, city],
     );
