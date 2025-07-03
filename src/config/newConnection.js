@@ -1,6 +1,6 @@
 //Export env 
 require('dotenv').config();
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 // const connection = mysql.createConnection({
 //     host: process.env.DB_HOST,//'localhost' ==> USES DATA IN ENV FILE,
 //     port: process.env.DB_PORT,
