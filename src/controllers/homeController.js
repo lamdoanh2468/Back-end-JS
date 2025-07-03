@@ -17,6 +17,9 @@ const getAnhThuCuaTui = (req, res) => {
 const getHoiDanIT = (req, res) => {
     res.render('sample.ejs')
 }
+const getCreatePage = (req, res) => {
+    res.render('createUser.ejs')
+}
 const postAddUser = (req, res) => {
     console.log("request body:", req.body);
     const { email, name, city } = req.body;
@@ -36,5 +39,6 @@ module.exports = {
     getHomePage,
     getAnhThuCuaTui,
     getHoiDanIT,
-    postAddUser
+    postAddUser,
+    getCreatePage
 };
