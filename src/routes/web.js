@@ -7,14 +7,16 @@ const {
     getAnhThuCuaTui,
     getHoiDanIT,
     postAddUser,
-    getCreatePage
+    getCreatePage,
+    editUserProfile
 } = require('../controllers/homeController');
 //<<
 router.get('/', getHomePage);
 router.get('/anhthuiu', getAnhThuCuaTui);
 router.get("/hoidanIT", getHoiDanIT);
-router.get("/create",getCreatePage);
+router.get("/create", getCreatePage);
 router.post("/create_user", postAddUser)
+router.get("/edit_user",editUserProfile)
 //>>
 //Export module
 module.exports = router;
