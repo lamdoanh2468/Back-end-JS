@@ -5,20 +5,16 @@ const getAllUsers = async () => {
     users = results;
     return users;
 }
-const getUser = async (id) => {
-    const [results, fields] = await connection.query('SELECT * FROM `USERS` WHERE id = ?', [id]);
-    const user = results[0] || null;
-    return user;
-}
-const editUser = async (id, email, name, city) => {
+
+const getUser = async (userID) => {
     const [results, fields] = await connection.query(
-        `UPDATE USERS
-        SET email = ?,  name = ?,city = ?
-        WHERE id =?`, [id, email, name, city]
-    )
-    console.log("CHECK EDIT RESUTL:", results)
+        'SELECT * FROM `USERS` WHERE id = ?',
+        [userID]
+    );
+    const user = results.length > 0 && results ? results[0] : {} //!Handle null user data
+    return user
 }
 module.exports = {
     getAllUsers,
-    editUser
+    getUser
 }

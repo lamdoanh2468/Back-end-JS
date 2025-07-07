@@ -1,7 +1,8 @@
 //Test connection
 const dbConnection = require('../config/newConnection');
 const {
-    getAllUsers,editUser
+    getAllUsers, editUser,
+    getUser
 } = require('../services/CRUDService');
 //Database connection
 const getHomePage = async (req, res) => {
@@ -23,8 +24,18 @@ const getHoiDanIT = (req, res) => {
 const getCreatePage = (req, res) => {
     res.render('createUser.ejs')
 }
-const editUserProfile = (req,res)=>{
-    res.render('editUser.ejs')
+const getUserProfile = async (req, res) => {
+    const userData = req.params;
+    const user = await getUser(userData.id);
+    console.log(user);
+    res.render('editUser.ejs', { userEdit: user })
+}
+const updateUserProfile = async (req, res) => {
+    const { id, email, name, city } = req.body;
+    let [results, fields] = await dbConnection.query("UPDATE `USERS` SET email =? ,name =?,city=? WHERE id =?", [email, name, city, id])
+    console.log(req.body);
+    console.log("Rows affected>>>", results);
+    res.send("<h3>Update User Successful<h3>")
 }
 const postAddUser = async (req, res) => {
     console.log("request body:", req.body);
@@ -35,9 +46,9 @@ const postAddUser = async (req, res) => {
     } = req.body;
     let [results, fields] = await dbConnection.query(
         'INSERT INTO USERS(email,name,city) VALUES (?,?,?)',
-        [email, name, city],
+        [email, name, city]
     );
-    res.render("createSuccessful.ejs")
+    res.send("<h3>Create User Successful<h3>")
     console.log("Check results:", results);
 }
 //Export module
@@ -47,5 +58,5 @@ module.exports = {
     getHoiDanIT,
     postAddUser,
     getCreatePage,
-    editUserProfile
+    getUserProfile,updateUserProfile
 };

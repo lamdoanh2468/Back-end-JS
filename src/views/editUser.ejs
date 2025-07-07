@@ -22,15 +22,17 @@
     <a href="#about">About</a>
   </div>
   <div class="add-user-form">
-    <form action="/create_user" method="post">
+    <form action="/update_user/" method="post">
       <fieldset>
         <legend>Edit User Profile:</legend>
+        <label for="email">ID:</label>
+        <input type="number" id="id" name="id" value="<%=userEdit.id%>" disabled><br><br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
+        <input type="email" id="email" name="email" value="<%=userEdit.email%>"><br><br>
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
+        <input type="text" id="name" name="name" value="<%=userEdit.name%>"><br><br>
         <label for="city">City:</label>
-        <input type="text" id="city" name="city"><br><br>
+        <input type="text" id="city" name="city" value="<%=userEdit.city%>"><br><br>
         <input type="submit" value="Submit">
       </fieldset>
     </form>
