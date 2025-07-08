@@ -13,10 +13,12 @@ body {
   align-items: center;
 }
 
-input[type="submit"] {
+input[type="submit"]{
   cursor: pointer;
 }
-
+.d-none{
+  display: none;
+}
 .topnav {
   background-color: #333;
   overflow: hidden;

@@ -8,6 +8,14 @@
   <link rel="icon" type="image/png" href="images/nodejs.png" />
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css" />
   <link rel="stylesheet" href="/css/home.css" />
+  <script>
+    function confirmDelete(userID) {
+      const isConfirmed = confirm("Are you sure for removing this user?");
+      if (isConfirmed) {
+        window.location.href = `remove_user/${userID}`;
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -29,17 +37,25 @@
         <th>Action</th>
       </tr>
       <% for (const user of listUsers) { %>
-      <tr class="table-data">
-        <td><%= user.id %></td>
-        <td><%= user.email %></td>
-        <td><%= user.name %></td>
-        <td><%= user.city %></td>
-        <td>
-          <button onclick="window.location.href='/edit_user/<%=user.id%>'">Edit</button>
-          <button>Delete</button>
-        </td>
-      </tr>
-      <% } %>
+        <tr class="table-data">
+          <td>
+            <%= user.id %>
+          </td>
+          <td>
+            <%= user.email %>
+          </td>
+          <td>
+            <%= user.name %>
+          </td>
+          <td>
+            <%= user.city %>
+          </td>
+          <td>
+            <button onclick="window.location.href='/edit_user/<%=user.id%>'">Edit</button>
+            <button onclick="confirmDelete('<%= user.id %>')">Delete</button>
+          </td>
+        </tr>
+        <% } %>
     </table>
   </div>
 </body>

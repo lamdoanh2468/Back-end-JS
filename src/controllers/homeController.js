@@ -2,7 +2,7 @@
 const dbConnection = require('../config/newConnection');
 const {
     getAllUsers, editUser,
-    getUser
+    getUser, updateUser, removeUser
 } = require('../services/CRUDService');
 //Database connection
 const getHomePage = async (req, res) => {
@@ -30,12 +30,17 @@ const getUserProfile = async (req, res) => {
     console.log(user);
     res.render('editUser.ejs', { userEdit: user })
 }
+const removeUserProfile = async (req, res) => {
+    const id = req.params.id; //! GET ID FROM ROUTE PARAMS
+    const affectedRows = await removeUser(id);
+    res.send('<h3>Remove user successful</h3>')
+    console.log("Rows affected>>>", affectedRows);
+}
 const updateUserProfile = async (req, res) => {
     const { id, email, name, city } = req.body;
-    let [results, fields] = await dbConnection.query("UPDATE `USERS` SET email =? ,name =?,city=? WHERE id =?", [email, name, city, id])
-    console.log(req.body);
-    console.log("Rows affected>>>", results);
-    res.send("<h3>Update User Successful<h3>")
+    const affectedRows = await updateUser(id, email, name, city);
+    res.redirect("/")
+    console.log("Rows affected>>>", affectedRows);
 }
 const postAddUser = async (req, res) => {
     console.log("request body:", req.body);
@@ -58,5 +63,7 @@ module.exports = {
     getHoiDanIT,
     postAddUser,
     getCreatePage,
-    getUserProfile,updateUserProfile
+    getUserProfile,
+    updateUserProfile,
+    removeUserProfile
 };
