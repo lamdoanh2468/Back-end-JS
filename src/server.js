@@ -19,7 +19,8 @@ app.use(express.urlencoded({extended:true}));
 //Using router 
 const webRouter = require('./routes/web');
 app.use('/', webRouter); // === app.use('/',"[MODULE_NAME]")
-
+const API_Router = require('./routes/api');
+app.use("/api/v1",API_Router);
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`)
 })
