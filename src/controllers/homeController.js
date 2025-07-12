@@ -1,7 +1,5 @@
 //Test connection
 const dbConnection = require('../config/newConnection');
-const multer = require('multer');
-const path = require('path')
 const {
     getAllUsers, editUser, createUser,
     getUser, updateUser, removeUser
@@ -55,49 +53,62 @@ const postAddUser = async (req, res) => {
     res.send("<h3>Create User Successful<h3>")
     console.log("Check results:", newUser);
 }
-const getUploadFilePage = async (req, res) => {
-    res.render('uploadFile.ejs')
+const getUploadSingleFilePage = async (req, res) => {
+    res.render('uploadSingleFile.ejs')
 }
-const uploadPicFile = async (req, res) => {
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, '/upload')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-        }
-    })
-    const imageFilter = function (req, file, cb) {
-        // Accept images only
-        if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-            req.fileValidationError = 'Only image files are allowed!';
-            return cb(new Error('Only image files are allowed!'), false);
-        }
-        cb(null, true);
-    };
-    // 10 is the limit I've defined for number of uploaded files at once
-    // 'multiple_images' is the name of our file input field
-    let upload = multer({ storage: storage, fileFilter: imageFilter }).single('profile_pic');
-
-    upload(req, res, function (err) {
-        // req.file contains information of uploaded file
-        // req.body contains information of text fields, if there were any
-
+const getUploadMutilFilePage = async (req, res) => {
+    res.render('uploadMultiFile.ejs')
+}
+const uploadSinglePicFile = async (req, res) => {
+    try {
         if (req.fileValidationError) {
             return res.send(req.fileValidationError);
         }
-        else if (!req.file) {
-            return res.send('Please select an image to upload');
+        if (!req.file) {
+            return res.send('Please select image to upload');
         }
-        else if (err instanceof multer.MulterError) {
-            return res.send(err);
+        res.send(`
+            <h3>You have uploaded this image:</h3>
+            <hr/>
+            <img src="/upload/${req.file.filename}" width="500" style="margin: 10px;">
+            <hr/>
+            <a href="/single-upload">Upload more</a>
+        `);
+
+    } catch (error) {
+        console.error("Upload error:", error);
+        res.status(500).send("Something went wrong during file upload.");
+    }
+
+}
+const uploadMultiPicFile = async (req, res) => {
+    // 10 is the limit I've defined for number of uploaded files at once
+    // 'multiple_images' is the name of our file input field
+    try {
+        // Nếu có lỗi do multer lọc ảnh
+        if (req.fileValidationError) {
+            return res.send(req.fileValidationError);
         }
-        else if (err) {
-            return res.send(err);
+
+        // Nếu không có file nào được upload
+        if (!req.files || req.files.length === 0) {
+            return res.send('Please select at least one image to upload');
         }
-        // Display uploaded image for user validation
-        res.send(`You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`);
-    });
+        let imageTags = req.files.map(file => {
+            return `<img src="/upload/${file.filename}" width="300" style="margin: 10px;">`;
+        }).join("");
+        // Tất cả ổn, phản hồi lại
+        res.send(`
+            <h3>You have uploaded these images:</h3>
+            <hr/>
+            ${imageTags}
+            <hr />
+            <a href="/multi-upload">Upload another image</a>
+        `);
+    } catch (err) {
+        console.error("Upload error:", err);
+        res.status(500).send("Something went wrong during file upload.");
+    }
 
 }
 //Export module
@@ -110,6 +121,8 @@ module.exports = {
     getUserProfile,
     updateUserProfile,
     removeUserProfile,
-    getUploadFilePage,
-    uploadPicFile
+    getUploadMutilFilePage,
+    getUploadSingleFilePage,
+    uploadSinglePicFile,
+    uploadMultiPicFile
 };

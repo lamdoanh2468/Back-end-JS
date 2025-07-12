@@ -16,11 +16,18 @@ configViewEngine(app);
 //config req body
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+// Serve static files from upload directory
+app.use('/upload', express.static('upload'));
+
 //Using router 
 const webRouter = require('./routes/web');
 app.use('/', webRouter); // === app.use('/',"[MODULE_NAME]")
 const API_Router = require('./routes/api');
 app.use("/api/v1",API_Router);
+//using morgan
+const morgan = require('morgan')
+app.use(morgan('combined'))
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`)
 })

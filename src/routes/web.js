@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/upload')
+        cb(null, './upload')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -19,7 +19,7 @@ const imageFilter = function (req, file, cb) {
     }
     cb(null, true);
 };
-let upload = multer({ storage: storage, fileFilter: imageFilter }).single('profile_pic');
+let upload = multer({ storage: storage, fileFilter: imageFilter });
 
 //Import module
 const {
@@ -31,8 +31,10 @@ const {
     getUserProfile,
     updateUserProfile,
     removeUserProfile,
-    getUploadFilePage,
-    uploadPicFile
+    getUploadSingleFilePage,
+    getUploadMutilFilePage,
+    uploadSinglePicFile,
+    uploadMultiPicFile
 } = require('../controllers/homeController');
 //<<
 router.get('/', getHomePage);
@@ -43,8 +45,10 @@ router.post("/create_user", postAddUser)
 router.get("/edit_user/:id/", getUserProfile)
 router.post("/update_user/:id", updateUserProfile)
 router.get("/remove_user/:id", removeUserProfile)
-router.get("/upload", getUploadFilePage)
-router.post("/upload-profile-pic", upload.single('profile_pic'), uploadPicFile)
+router.get("/single-upload", getUploadSingleFilePage)
+router.get("/multi-upload", getUploadMutilFilePage)
+router.post("/upload-profile-pic", upload.single('profile_pic'), uploadSinglePicFile)
+router.post("/upload-multi-profile-pic", upload.array('profile_pic', 10), uploadMultiPicFile)
 //>>
 //Export module
 module.exports = router;
