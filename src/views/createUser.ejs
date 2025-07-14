@@ -13,7 +13,13 @@
     <div class="topnav">
         <a href="/">Home</a>
         <a class="active" href="/create">Create User</a>
-        <a href="/upload">Upload File</a>
+        <div class="dropdown">
+            <button class="dropbtn">Upload File ▼</button>
+            <div class="dropdown-content">
+                <a href="/single-upload">Upload Single File</a>
+                <a href="/multi-upload">Upload Multiple Files</a>
+            </div>
+        </div>
     </div>
     <div class="add-user-form">
         <form action="/create_user" method="post">
